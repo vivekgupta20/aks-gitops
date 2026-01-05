@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: identity-svc
+  namespace: flux-system
+spec:
+  image: acraksworkshopdev.azurecr.io/identity-svc
+  interval: 1m
+  secretRef:
+    name: acr-credentials
