@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: identity-svc
-        image: myacr.azurecr.io/identity-svc:initial-tag # {"$imagepolicy": "flux-system:identity-svc"}
+        image: acraksworkshopdev.azurecr.io/identity-svc:v1.0.0 # {"$imagepolicy": "flux-system:identity-svc"}
         ports:
         - containerPort: 8082
         livenessProbe:
