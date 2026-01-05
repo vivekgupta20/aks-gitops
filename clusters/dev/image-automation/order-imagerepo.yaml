@@ -1,0 +1,11 @@
+
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: order-svc
+  namespace: flux-system
+spec:
+  image: acraksworkshopdev.azurecr.io/order-svc
+  interval: 1m
+  secretRef:
+    name: acr-credentials   # created in flux-system

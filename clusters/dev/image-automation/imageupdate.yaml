@@ -27,4 +27,3 @@ spec:
   update:
     path: ./apps
     strategy: Setters
-``

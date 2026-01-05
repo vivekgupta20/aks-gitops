@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: identity-svc
-  namespace: apps
+  namespace: orders
 spec:
   replicas: 2
   selector:
