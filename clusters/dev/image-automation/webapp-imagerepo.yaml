@@ -1,0 +1,10 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: webapp-svc
+  namespace: flux-system
+spec:
+  image: acraksworkshopdev.azurecr.io/webapp
+  interval: 1m
+  secretRef:
+    name: acr-credentials   # created in flux-system
