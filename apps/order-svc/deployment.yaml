@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: order-svc
-        image: acraksworkshopdev.azurecr.io/order-svc:v1.0.1 # {"$imagepolicy": "flux-system:order-svc"}
+        image: acraksworkshopdev.azurecr.io/order-svc:v1.0.1 # {"$imagepolicy": "flux-system:order-svc-policy"}
         ports:
         - containerPort: 8080
         livenessProbe:
