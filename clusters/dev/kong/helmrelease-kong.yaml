@@ -1,0 +1,54 @@
+
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kong
+  namespace: flux-system
+spec:
+  interval: 5m
+  releaseName: kong
+  targetNamespace: kong
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  chart:
+    spec:
+      chart: kong
+      version: 3.0.2 # pin a stable known version; update as needed
+      sourceRef:
+        kind: HelmRepository
+        name: kong
+        namespace: flux-system
+      interval: 1h
+  values:
+    # Install the controller and its CRDs
+    ingressController:
+      enabled: true
+      installCRDs: true
+
+    # Expose Kong proxy to Internet via Azure LoadBalancer
+    proxy:
+      type: LoadBalancer
+      annotations:
+        # Optional: force a public LB and set idle timeout (Azure-specific)
+        service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+        service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "120"
+      http:
+        enabled: true
+        servicePort: 80
+      tls:
+        enabled: true
+        servicePort: 443
+
+    # (Optional) Reduce resources for dev
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
