@@ -36,7 +36,7 @@ spec:
       annotations:
         # Optional: force a public LB and set idle timeout (Azure-specific)
         service.beta.kubernetes.io/azure-load-balancer-internal: "false"
-        service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "120"
+        service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "30"
       http:
         enabled: true
         servicePort: 80
