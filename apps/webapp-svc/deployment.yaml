@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp
-  namespace: apps
+  namespace: orders
 spec:
   replicas: 1
   selector:
