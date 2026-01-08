@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: kong
   rules:
-    - host: HOST
+    - host: 4.220.29.14.nip.io/
       http:
         paths:
           - path: /webapp
