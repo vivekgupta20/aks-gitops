@@ -1,0 +1,16 @@
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: webapp-selfsigned-cert
+  namespace: default
+spec:
+  secretName: webapp-tls
+  duration: 8760h # 1 year
+  renewBefore: 360h # 15 days before expiry
+  commonName: 4.220.29.14.nip.io
+  dnsNames:
+    - 4.220.29.14.nip.io
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer

@@ -18,8 +18,7 @@ spec:
                 name: webapp
                 port:
                   number: 80
-# Optional TLS
-#  tls:
-#    - hosts:
-#        - 4.220.29.14.nip.io
-#      secretName: web-tls
+  tls:
+    - hosts:
+        - 4.220.29.14.nip.io
+      secretName: webapp-tls
