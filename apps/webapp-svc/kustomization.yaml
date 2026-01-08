@@ -4,3 +4,5 @@ resources:
   - deployment.yaml
   - service.yaml
   - webapp-ingress.yaml
+  - certificate.yaml
+  - issuer.yaml
