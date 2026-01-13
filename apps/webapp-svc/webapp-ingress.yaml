@@ -11,7 +11,7 @@ spec:
     - host: 4.220.29.14.nip.io
       http:
         paths:
-          - path: /webapp
+          - path: /
             pathType: Prefix
             backend:
               service:
