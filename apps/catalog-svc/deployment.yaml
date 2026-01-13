@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: catalog-svc
-        image: acraksworkshopdev.azurecr.io/catalog-svc:v1.0.4 # {"$imagepolicy": "flux-system:catalog-svc-policy"}
+        image: acraksworkshopdev.azurecr.io/catalog-svc:v1.0.7 # {"$imagepolicy": "flux-system:catalog-svc-policy"}
         ports:
         - containerPort: 8081
         livenessProbe:
