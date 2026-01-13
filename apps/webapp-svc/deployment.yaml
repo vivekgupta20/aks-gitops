@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: acraksworkshopdev.azurecr.io/webapp:v1.0.8 # {"$imagepolicy": "flux-system:webapp-svc-policy"}
+        image: acraksworkshopdev.azurecr.io/webapp:v1.0.9 # {"$imagepolicy": "flux-system:webapp-svc-policy"}
         ports:
         - containerPort: 80
