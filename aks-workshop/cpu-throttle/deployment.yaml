@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-web
+  name: cpu-throttled
   namespace: demo-apps
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: simple-web
+      app: cpu-throttled
   template:
     metadata:
       labels:
-        app: simple-web
+        app: cpu-throttled
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.25
-        ports:
-        - containerPort: 80
+      - name: stress
+        image: polinux/stress
+        command: ["stress"]
+        args: ["--cpu", "4", "--timeout", "600s"]  # Request 4 CPUs
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
+            cpu: "500m"
             memory: "128Mi"
-            cpu: "200m"
+          limits:
+            cpu: "500m"  # But limit to 0.5 CPU - will throttle!
+            memory: "256Mi"
