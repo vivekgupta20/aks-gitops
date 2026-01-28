@@ -4,3 +4,4 @@ resources:
   - configMap.yaml
   - daemonset.yaml
   - rbac.yaml
+  - simple-app.yaml
