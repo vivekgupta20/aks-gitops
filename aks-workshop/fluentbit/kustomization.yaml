@@ -5,3 +5,4 @@ resources:
   - daemonset.yaml
   - rbac.yaml
   - simple-app.yaml
+  - service.yaml

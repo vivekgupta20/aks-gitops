@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fluent-bit
+  namespace: logging
+  labels:
+    app: fluent-bit
+spec:
+  selector:
+    app: fluent-bit
+  ports:
+  - name: http
+    port: 2020
+    targetPort: 2020
+  type: ClusterIP
