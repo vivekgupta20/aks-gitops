@@ -30,9 +30,9 @@ spec:
           protocol: TCP
         env:
         - name: CLUSTER_NAME
-          value: "$CLUSTER_NAME"
+          value: "aks-workshop-dev-cluster"
         - name: ELK_PRIVATE_IP
-          value: "$ELK_PRIVATE_IP"
+          value: "10.225.0.5"
         - name: NODE_NAME
           valueFrom:
             fieldRef:
@@ -45,13 +45,6 @@ spec:
           readOnly: true
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc/
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
       volumes:
       - name: varlog
         hostPath:
