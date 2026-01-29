@@ -1,0 +1,41 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-labels
+  annotations:
+    policies.kyverno.io/title: Require Labels
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/description: >-
+      Requires all pods to have 'app' and 'owner' labels.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: require-app-label
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - policy-test
+    validate:
+      message: "The label 'app' is required on all pods"
+      pattern:
+        metadata:
+          labels:
+            app: "?*"
+  - name: require-owner-label
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - policy-test
+    validate:
+      message: "The label 'owner' is required on all pods"
+      pattern:
+        metadata:
+          labels:
+            owner: "?*"
