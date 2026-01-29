@@ -7,43 +7,44 @@ spec:
     apiVersion: platform.example.org/v1alpha1
     kind: XNetworkSecurityGroup
 
-  patchSets:
-    - name: common
-      patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: "spec.parameters.location"
-          toFieldPath: "spec.forProvider.location"
-
-        - type: FromCompositeFieldPath
-          fromFieldPath: "spec.parameters.resourceGroupName"
-          toFieldPath: "spec.forProvider.resourceGroupName"
-
-        - type: FromCompositeFieldPath
-          fromFieldPath: "spec.parameters.tags"
-          toFieldPath: "spec.forProvider.tags"
-
-  resources:
-    - name: nsg
-      base:
-        apiVersion: network.azure.upbound.io/v1beta1
-        kind: NetworkSecurityGroup
-        spec:
-          providerConfigRef:
-            name: default
-          forProvider:
-            securityRule:
-              - name: allow-ssh
-                priority: 100
-                direction: Inbound
-                access: Allow
-                protocol: Tcp
-                sourcePortRange: "*"
-                destinationPortRange: "22"
-                sourceAddressPrefix: "*"
-                destinationAddressPrefix: "*"
-      patches:
-        - type: PatchSet
-          patchSetName: common
-        - type: FromCompositeFieldPath
-          fromFieldPath: "metadata.uid"
-          toFieldPath: "metadata.labels[crossplane.io/parent-uid]"
+  # Use Pipeline mode with the patch-and-transform function
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: nsg
+            base:
+              apiVersion: network.azure.upbound.io/v1beta1
+              kind: NetworkSecurityGroup
+              spec:
+                providerConfigRef:
+                  name: default
+                forProvider:
+                  # defaults; patches below will override from XR
+                  location: westeurope
+                  securityRule:
+                    - name: allow-ssh
+                      priority: 100
+                      direction: Inbound
+                      access: Allow
+                      protocol: Tcp
+                      sourcePortRange: "*"
+                      destinationPortRange: "22"
+                      sourceAddressPrefix: "*"
+                      destinationAddressPrefix: "*"
+            patches:
+              # XR -> MR patches (no patchSets needed)
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.parameters.location"
+                toFieldPath:   "spec.forProvider.location"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.parameters.resourceGroupName"
+                toFieldPath:   "spec.forProvider.resourceGroupName"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.parameters.tags"
+                toFieldPath:   "spec.forProvider.tags"
