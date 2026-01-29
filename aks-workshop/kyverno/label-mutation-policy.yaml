@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-default-labels
+  annotations:
+    policies.kyverno.io/title: Add Default Labels
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/description: >-
+      Automatically adds default labels to pods if not present.
+spec:
+  background: false
+  rules:
+  - name: add-team-label
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - policy-test
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            +(team): "platform-engineering"
+            +(environment): "lab"
+            +(managed-by): "kyverno"
