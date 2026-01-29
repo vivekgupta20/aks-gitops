@@ -1,5 +1,5 @@
 apiVersion: platform.example.org/v1alpha1
-kind: NetworkSecurityGroup
+kind: SecurityGroup
 metadata:
   name: app-nsg
   namespace: crossplane-demo
