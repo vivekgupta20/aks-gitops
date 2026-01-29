@@ -26,9 +26,9 @@ spec:
 
   values:
     admissionController:
-      replicas: 3
+      replicas: 1
     backgroundController:
-      replicas: 2
+      replicas: 1
     cleanupController:
       replicas: 1
     # optional: adjust as needed
