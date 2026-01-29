@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  interval: 5m
+  releaseName: kyverno
+  chart:
+    spec:
+      chart: kyverno
+      version: "*"
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: flux-system
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+
+  upgrade:
+    remediation:
+      retries: 3
+
+  values:
+    admissionController:
+      replicas: 3
+    backgroundController:
+      replicas: 2
+    cleanupController:
+      replicas: 1
+    # optional: adjust as needed
