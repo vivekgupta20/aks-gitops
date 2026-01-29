@@ -20,7 +20,7 @@ spec:
           - name: nsg
             base:
               apiVersion: network.azure.upbound.io/v1beta1
-              kind: NetworkSecurityGroup
+              kind: SecurityGroup
               spec:
                 providerConfigRef:
                   name: default
