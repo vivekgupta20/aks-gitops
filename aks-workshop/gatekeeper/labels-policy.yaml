@@ -1,0 +1,36 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredlabels
+  annotations:
+    description: "Requires specified labels on resources"
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredLabels
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            labels:
+              type: array
+              description: "List of required labels"
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredlabels
+
+        # Deny if any required label is missing
+        violation[{"msg": msg}] {
+          # Get the list of required labels from parameters
+          required := input.parameters.labels[_]
+          
+          # Check if the label exists on the resource
+          not input.review.object.metadata.labels[required]
+          
+          # Create the violation message
+          msg := sprintf("Resource must have label: %v", [required])
+        }
