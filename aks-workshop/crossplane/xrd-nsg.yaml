@@ -1,0 +1,39 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xnetworksecuritygroups.platform.example.org
+spec:
+  group: platform.example.org
+  names:
+    kind: XNetworkSecurityGroup
+    plural: xnetworksecuritygroups
+  claimNames:
+    kind: NetworkSecurityGroup
+    plural: networksecuritygroups
+  defaultCompositionRef:
+    name: xnetworksecuritygroup-azure
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      default: norwayeast
+                    resourceGroupName:
+                      type: string
+                    tags:
+                      type: object
+                      additionalProperties:
+                        type: string
+              required:
+                - parameters

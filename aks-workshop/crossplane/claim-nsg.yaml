@@ -1,0 +1,12 @@
+apiVersion: platform.example.org/v1alpha1
+kind: NetworkSecurityGroup
+metadata:
+  name: app-nsg
+  namespace: crossplane-demo
+spec:
+  parameters:
+    location: norwayeast
+    resourceGroupName: rg-aks-vivek-crossplane
+    tags:
+      Owner: team-a
+      Purpose: app-security
